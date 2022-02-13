@@ -1,0 +1,108 @@
+name: XcraftGate
+main: de.xcraft.voronwe.xcraftgate.XcraftGate
+version: "1.17.1"
+api-version: "1.17"
+author: "Engelier, Voronwe"
+load: "STARTUP"
+softdepend: [Vault]
+commands:
+  gate:
+    description: Modify Teleporters
+    usage: /<command> help
+  gworld:
+    description: Manage Worlds
+    usage: /<command> help
+permissions:
+  XcraftGate.*:
+    description: Access to all commands/gates this plugin provides
+    children:
+      XcraftGate.use.*: true
+      XcraftGate.gate.*: true
+      XcraftGate.world.*: true
+    default: false    
+  XcraftGate.gate.*:
+    description: Access to all /gate commands
+    default: op
+    children:
+      XcraftGate.gate: true
+      XcraftGate.gate.create: true
+      XcraftGate.gate.delete: true
+      XcraftGate.gate.link: true
+      XcraftGate.gate.unlink: true
+      XcraftGate.gate.info: true
+      XcraftGate.gate.warp: true
+      XcraftGate.gate.reload: true
+      XcraftGate.gate.toll: true
+      XcraftGate.gate.denysilent: true
+  XcraftGate.gate:
+    description: Basic access to /gate
+  XcraftGate.gate.create:
+    description: Access to /gate create, /gate move
+  XcraftGate.gate.delete:
+    description: Access to /gate delete
+  XcraftGate.gate.link:
+    description: Access to /gate link, /gate loop
+  XcraftGate.gate.unlink:
+    description: Access to /gate unlink, /gate unloop
+  XcraftGate.gate.toll:
+    description: Access to /gate settoll
+  XcraftGate.gate.denysilent:
+    description: Access to /gate denysilent
+  XcraftGate.gate.info:
+    description: Access to /gate list, /gate listsolo, /gate listnear, /gate info
+  XcraftGate.gate.warp:
+    description: Access to /gate warp
+  XcraftGate.gate.reload:
+    description: Access to /gate reload
+  XcraftGate.world.*:
+    description: Access to all /gworld commands
+    default: op
+    children:
+      XcraftGate.world: true
+      XcraftGate.world.create: true
+      XcraftGate.world.delete: true
+      XcraftGate.world.warp: true
+      XcraftGate.world.setborder: true
+      XcraftGate.world.setcreaturelimit: true
+      XcraftGate.world.pvp: true
+      XcraftGate.world.weather: true
+      XcraftGate.world.time: true
+      XcraftGate.world.info: true
+      XcraftGate.world.load: true
+      XcraftGate.world.difficulty: true
+      XcraftGate.world.gamemode: true
+      XcraftGate.world.spawn: true
+      XcraftGate.world.announcelogin: false
+  XcraftGate.world:
+    description: Basic access to /gworld
+  XcraftGate.world.create:
+    description: Access to /gworld create
+  XcraftGate.world.delete:
+    description: Access to /gworld delete
+  XcraftGate.world.warp:
+    description: Access to /gworld warp
+  XcraftGate.world.setborder:
+    description: Access to /gworld setborder
+  XcraftGate.world.setcreaturelimit:
+    description: Access to /gworld setcreaturelimit, /gworld allowanimals, /gworld allowmonsters, /gworld suppresshealthregain
+  XcraftGate.world.pvp:
+    description: Access to /gworld allowpvp
+  XcraftGate.world.weather:
+    description: Access to /gworld allowweatherchange, /gworld setweather
+  XcraftGate.world.time:
+    description: Access to /gworld settime, /gworld timefrozen
+  XcraftGate.world.info:
+    description: Access to /gworld info, /gworld list
+  XcraftGate.world.load:
+    description: Access to /gworld load, /gworld unload, /gworld setsticky, /gworld keepspawninmemory
+  XcraftGate.world.difficulty:
+    description: Access to /gworld setdifficulty, /gworld setannouncedeath
+  XcraftGate.world.gamemode:
+    description: Access to /gworld setgamemode, /gworld setgamerule, /gworld setloginmessage
+  XcraftGate.world.spawn:
+    description: Access to /gworld setspawn
+  XcraftGate.world.announcelogin:
+    description: Don't change player's gamemode on world change or login
+    default: false
+  XcraftGate.world.nogamemodechange:
+    description: Don't change player's gamemode on world change or login
