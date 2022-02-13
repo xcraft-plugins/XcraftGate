@@ -1,7 +1,7 @@
 name: XcraftGate
 main: de.xcraft.voronwe.xcraftgate.XcraftGate
 version: "1.18.1"
-api-version: "1.18"
+api-version: 1.18
 author: "Engelier, Voronwe"
 load: "STARTUP"
 softdepend: [Vault]
