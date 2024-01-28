@@ -39,12 +39,10 @@ public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
       this.permNodes.put("listplayers", "info");
       this.permNodes.put("load", "load");
       this.permNodes.put("unload", "load");
-      this.permNodes.put("setsticky", "load");
       this.permNodes.put("keepspawninmemory", "load");
       this.permNodes.put("setdifficulty", "difficulty");
       this.permNodes.put("setannouncedeath", "difficulty");
       this.permNodes.put("setgamemode", "gamemode");
-      this.permNodes.put("setgamerule", "gamemode");
       this.permNodes.put("setloginmessage", "gamemode");
       this.permNodes.put("setspawn", "spawn");
       this.permNodes.put("setrespawnlocation", "spawn");
@@ -134,7 +132,7 @@ public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
 
    public void printUsage() {
       ChatColor var10001 = ChatColor.GRAY;
-      this.sender.sendMessage(var10001 + this.plugin.getNameBrackets() + ChatColor.GOLD + "by Engelier, maintained by Voronwe");
+      this.sender.sendMessage(var10001 + this.plugin.getNameBrackets());
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld list");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld info <world>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld listenv");
@@ -159,7 +157,6 @@ public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld suppresshealthregain <world> <true|false>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld suppresshunger <world> <true|false>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setinventorygroup <world> <groupname>");
-      this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setsticky <world> <true|false>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld keepspawninmemory <world> <true|false>");
    }
 
