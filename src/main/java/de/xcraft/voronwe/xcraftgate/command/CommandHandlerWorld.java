@@ -2,39 +2,16 @@ package de.xcraft.voronwe.xcraftgate.command;
 
 import de.xcraft.voronwe.xcraftgate.DataWorld;
 import de.xcraft.voronwe.xcraftgate.XcraftGate;
-import de.xcraft.voronwe.xcraftgate.command.world.CreateWorldCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.DeleteWorldCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.ListEnvironmentsCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.ListWorldsCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.ListWorldsPlayersCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.LoadWorldCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldBorderCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldCreatureLimitCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldDifficultyCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldGameModeCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldGameRuleCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldInventoryGroupCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldLoginMessageCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldRespawnLocationCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldSpawnCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldTimeCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.SetWorldWeatherCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.UnloadWorldCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.WarptoWorldCommand;
-import de.xcraft.voronwe.xcraftgate.command.world.WorldInfoCommand;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import de.xcraft.voronwe.xcraftgate.command.world.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+
+import java.util.*;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
    private final Map<String, Supplier<WorldSubcommand>> subcommands = new HashMap();
@@ -108,9 +85,6 @@ public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
       this.subcommands.put("allowweatherchange", () -> {
          return new SimpleWorldProperty(this.plugin, "allowweatherchange", "Weather changes", DataWorld::setAllowWeatherChange);
       });
-      this.subcommands.put("setweather", () -> {
-         return new SetWorldWeatherCommand(this.plugin);
-      });
       this.subcommands.put("timefrozen", () -> {
          return new SimpleWorldProperty(this.plugin, "timefrozen", "Regular time resets", DataWorld::setTimeFrozen);
       });
@@ -132,9 +106,6 @@ public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
       this.subcommands.put("unload", () -> {
          return new UnloadWorldCommand(this.plugin);
       });
-      this.subcommands.put("setsticky", () -> {
-         return new SimpleWorldProperty(this.plugin, "setsticky", "Permanently loading", DataWorld::setSticky);
-      });
       this.subcommands.put("keepspawninmemory", () -> {
          return new SimpleWorldProperty(this.plugin, "keepspawninmemory", "Keeping spawn chunks loaded", DataWorld::setKeepSpawnInMemory);
       });
@@ -143,9 +114,6 @@ public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
       });
       this.subcommands.put("setgamemode", () -> {
          return new SetWorldGameModeCommand(this.plugin);
-      });
-      this.subcommands.put("setgamerule", () -> {
-         return new SetWorldGameRuleCommand(this.plugin);
       });
       this.subcommands.put("setloginmessage", () -> {
          return new SetWorldLoginMessageCommand(this.plugin);
@@ -180,13 +148,11 @@ public class CommandHandlerWorld extends CommandHelper implements TabExecutor {
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld allowmonsters <world> <true|false>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld allowpvp <world> <true|false>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld allowweatherchange <world> <true|false>");
-      this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setweather <world> <sun|storm>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld timefrozen <world> <true|false>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld settime <world> <sunrise|noon|sunset|midnight>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setdifficulty <world> <peaceful|easy|normal|hard>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setannouncedeath <world> <true|false>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setgamemode <world> <survival|creative|adventure>");
-      this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setgamerule <world> <rulename> <value>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setloginmessage <world> [message]");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setspawn <world>");
       this.sender.sendMessage(ChatColor.DARK_GRAY + "-> " + ChatColor.GREEN + "/gworld setrespawnlocation <world> <worldspawn|bedspawn|world <worldname>>");

@@ -92,8 +92,6 @@ public class XcraftGate extends JavaPlugin {
       this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new XcraftGate.RunCreatureLimit(), 600L, 600L);
       this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new XcraftGate.RunTimeFrozen(), 200L, 200L);
       this.getServer().getScheduler().runTaskTimerAsynchronously(this, this::saveAll, 12000L, 12000L);
-      this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new XcraftGate.RunCheckWorldInactive(), (long)this.config.getInt("dynworld.checkInterval", 60) * 20L, (long)this.config.getInt("dynworld.checkInterval", 60) * 20L);
-      this.getServer().getScheduler().scheduleSyncDelayedTask(this, new XcraftGate.RunLoadAllWorlds());
       this.getServer().getScheduler().scheduleSyncDelayedTask(this, this.pm);
 
       try {
@@ -245,42 +243,6 @@ public class XcraftGate extends JavaPlugin {
          while(var1.hasNext()) {
             DataWorld thisWorld = (DataWorld)var1.next();
             thisWorld.resetFrozenTimeIfFrozen();
-         }
-
-      }
-   }
-
-   class RunCheckWorldInactive implements Runnable {
-      public void run() {
-         Iterator var1 = XcraftGate.this.getServer().getWorlds().iterator();
-
-         while(var1.hasNext()) {
-            World thisWorld = (World)var1.next();
-            if (XcraftGate.this.worlds.get(thisWorld).checkInactive() && !thisWorld.getName().equalsIgnoreCase(XcraftGate.this.serverconfig.getProperty("level-name"))) {
-               XcraftGate.this.logInfo("World '" + thisWorld.getName() + "' inactive. Unloading.");
-               XcraftGate.this.worlds.get(thisWorld).unload();
-            }
-         }
-
-      }
-   }
-
-   class RunLoadAllWorlds implements Runnable {
-      public void run() {
-         Iterator var1 = XcraftGate.this.getServer().getWorlds().iterator();
-
-         while(var1.hasNext()) {
-            World thisWorldx = (World)var1.next();
-            XcraftGate.this.worlds.onWorldLoad(thisWorldx);
-         }
-
-         var1 = XcraftGate.this.worlds.iterator();
-
-         while(var1.hasNext()) {
-            DataWorld thisWorld = (DataWorld)var1.next();
-            if (!thisWorld.isLoaded() && thisWorld.isSticky()) {
-               thisWorld.load();
-            }
          }
 
       }
